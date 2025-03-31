@@ -1,0 +1,31 @@
+<%- include('partials/header') %>
+<div class="container mt-4">
+    <div class="row">
+        <!-- Left Section (2/3 of the screen) -->
+        <div class="col-md-8">
+            <h2>Discussion Blogs</h2>
+            <p class="text-muted">Announce something or share your viewpoint with fellow Code Arena users.</p>
+            
+            <div class="card p-3">
+                <form>
+                    <div class="mb-3">
+                        <label for="blogTitle" class="form-label">Blog Title</label>
+                        <input type="text" class="form-control" id="blogTitle" placeholder="Enter your blog title">
+                    </div>
+                    <div class="mb-3">
+                        <label for="blogContent" class="form-label">Content</label>
+                        <textarea class="form-control" id="blogContent" rows="4" placeholder="Write your thoughts here..."></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Post Blog</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Right Section (1/3 of the screen) -->
+        <div class="col-md-4">
+            <!-- Placeholder for future content -->
+        </div>
+    </div>
+</div>
+
+<%- include('partials/footer') %>

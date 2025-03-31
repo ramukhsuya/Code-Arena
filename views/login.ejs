@@ -1,0 +1,72 @@
+<%- include('partials/header') %>
+
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+      <div class="card shadow">
+        <div class="card-header bg-primary text-white">
+          <h3 class="text-center mb-0">Login</h3>
+        </div>
+        <div class="card-body p-4">
+          <% if (verificationState === 'initial') { %>
+            <form action="/verify-handle" method="POST">
+              <div class="mb-3">
+                <label for="codeforces-handle" class="form-label">Enter your CodeForces handle</label>
+                <input 
+                  type="text" 
+                  class="form-control" 
+                  id="codeforces-handle" 
+                  name="handle" 
+                  placeholder="Your CodeForces handle" 
+                  required
+                >
+              </div>
+              <div class="d-grid gap-2">
+                <button type="submit" class="btn btn-primary">Verify handle</button>
+              </div>
+            </form>
+          <% } else if (verificationState === 'pending') { %>
+            <div class="alert alert-info">
+              <p><strong>Please follow these steps to verify your handle:</strong></p>
+              <p>1. Submit a Compilation Error to this problem: <a href="<%= problemLink %>" target="_blank"><%= problemName %></a></p>
+              <p>2. After submitting, click the "Check Handle" button below</p>
+              <p class="text-danger">Time remaining: <span id="countdown">150</span> seconds</p>
+            </div>
+            <form action="/check-verification" method="POST">
+              <div class="d-grid gap-2">
+                <button type="submit" class="btn btn-success">Check Handle</button>
+              </div>
+            </form>
+          <% } %>
+          
+          <% if (message) { %>
+            <div class="alert alert-<%= messageType || 'info' %> mt-3">
+              <%= message %>
+            </div>
+          <% } %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<% if (verificationState === 'pending') { %>
+<script>
+  // Countdown timer
+  let timeLeft = 150;
+  const countdownElement = document.getElementById('countdown');
+  
+  const timer = setInterval(() => {
+    timeLeft -= 1;
+    countdownElement.textContent = timeLeft;
+    
+    if (timeLeft <= 0) {
+      clearInterval(timer);
+      alert('Time expired! Please try again.');
+      window.location.href = '/login';
+    }
+  }, 1000);
+</script>
+<% } %>
+
+<%- include('partials/footer') %>
